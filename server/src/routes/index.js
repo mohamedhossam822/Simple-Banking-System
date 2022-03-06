@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Controller = require('../controllers');
-router.get("/",Controller.HelloGet);
 //get users list
-
+router.get("/getUsers",Controller.getUsers);
 //post Make a transaction -- Add transaction to transaction
-
+router.post("/makeATransaction",Controller.makeATransaction);
 //Get Transaction List
+router.get("/getTransactionList",Controller.getTransactionList);
 module.exports = router;
