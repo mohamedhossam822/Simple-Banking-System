@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema({
   balance: {
     type: Number,
     required: true,
-  }
+  },
+  transactions: [{ type: mongoose.ObjectId, ref: "Transaction" }],
 });
 
 mongoose.model("User", userSchema);

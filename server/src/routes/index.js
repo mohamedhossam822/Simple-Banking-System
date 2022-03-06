@@ -7,4 +7,6 @@ router.get("/getUsers",Controller.getUsers);
 router.post("/makeATransaction",Controller.makeATransaction);
 //Get Transaction List
 router.get("/getTransactionList",Controller.getTransactionList);
+// Get users Transactions
+//router.post("/getTransactionUserList",Controller.getTransactionUserList);
 module.exports = router;
