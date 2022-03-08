@@ -19,7 +19,6 @@ exports.getUsers = (req, res) => {
 //post Make a transaction -- Add transaction to transaction
 exports.makeATransaction = async (req, res) => {
   const { user_id, balance } = req.body;
-
   //Update the balance of the user
   const updatedUser = await User.findByIdAndUpdate(
     user_id,
