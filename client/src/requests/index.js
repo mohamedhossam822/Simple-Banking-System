@@ -1,4 +1,4 @@
-export const fetchData = async () => {
+export const fetchClients = async () => {
   const data = await fetch("/getUsers", {
     method: "get",
     headers: {
@@ -19,3 +19,25 @@ export const makeATransaction = async (id, funds) => {
   }).then((res) => res.json());
   return data;
 };
+
+export const fetchTransactions = async () => {
+  const data = await fetch("/getTransactionList", {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  }).then((res) => res.json());
+  return data;
+};
+
+export const fetchUserTransactions = async (id)=>{
+  const data = await fetch("/getTransactionUserList/"+id, {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  }).then((res) => res.json());
+  return data;
+}

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { fetchData, makeATransaction } from "../requests";
+import { useNavigate } from "react-router-dom";
+
+import { fetchClients, makeATransaction } from "../requests";
 import { Table, Space, Button, Modal, Form, Input } from "antd";
 import "antd/dist/antd.css";
 export const Users = () => {
+  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -16,7 +19,7 @@ export const Users = () => {
   const defaultErrMessage = { validateStatus: "success", errorMsg: null };
 
   useEffect(() => {
-    fetchData()
+    fetchClients()
       .then((data) => {
         setData(data);
       })
@@ -33,7 +36,7 @@ export const Users = () => {
     setErrMessage(defaultErrMessage);
     //Make the transaction
     const res = await makeATransaction(currentId, funds);
-    fetchData().then((data) => {
+    fetchClients().then((data) => {
       setData(data);
     });
     setCurrentId(null);
@@ -43,6 +46,10 @@ export const Users = () => {
   const handleCancel = () => {
     setCurrentId(null);
     setIsModalVisible(false);
+  };
+
+  const visitUserPage = (id) => {
+    navigate("/transactions/" + id);
   };
 
   const columns = [
@@ -68,6 +75,9 @@ export const Users = () => {
         <Space size="middle">
           <Button onClick={() => showModal(user._id)}>
             Transfer funds to {user.name}
+          </Button>
+          <Button onClick={() => visitUserPage(user._id)}>
+            Go to {user.name} Page
           </Button>
         </Space>
       ),
@@ -134,7 +144,7 @@ export const Users = () => {
 
   return (
     <div>
-      <h1>Users</h1>
+      <h1>Clients</h1>
       {isLoading ? listItems : <div>Loading ...</div>}
       {newModal}
     </div>
