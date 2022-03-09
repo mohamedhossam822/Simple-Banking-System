@@ -75,3 +75,14 @@ exports.getTransactionList = (req, res) => {
       console.log(err);
     });
 };
+exports.getTransactionUserList = (req, res) => {
+  const id=req.params.id;
+  User.findById(id)
+    .populate({ path: "transactions" })
+    .then((docs) => {
+      res.status(200).json(docs);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

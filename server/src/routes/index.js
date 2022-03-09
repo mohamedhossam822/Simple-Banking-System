@@ -8,5 +8,5 @@ router.post("/makeATransaction",Controller.makeATransaction);
 //Get Transaction List
 router.get("/getTransactionList",Controller.getTransactionList);
 // Get users Transactions
-//router.post("/getTransactionUserList",Controller.getTransactionUserList);
+router.get("/getTransactionUserList/:id",Controller.getTransactionUserList);
 module.exports = router;
