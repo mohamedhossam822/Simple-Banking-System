@@ -52,15 +52,13 @@ exports.makeATransaction = async (req, res) => {
     return res.status(400).json(err);
   });
 
-  res
-    .status(200)
-    .json({
-      message:
-        balance +
-        "$ Added Successfully. Current Balance: " +
-        updatedUser.balance +
-        "$",
-    });
+  res.status(200).json({
+    message:
+      balance +
+      "$ Added Successfully. Current Balance: " +
+      updatedUser.balance +
+      "$",
+  });
 };
 
 //Get Transaction List
@@ -76,12 +74,32 @@ exports.getTransactionList = (req, res) => {
       console.log(err);
     });
 };
+
 exports.getTransactionUserList = (req, res) => {
   const id = req.params.id;
   User.findById(id)
     .populate({ path: "transactions" })
     .then((docs) => {
       res.status(200).json(docs);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.addAUser = (req, res) => {
+  console.log(req.body);
+  const user = {
+    name: req.body.name,
+    email: req.body.email,
+    balance: req.body.balance,
+  };
+  new User(user)
+    .save()
+    .then(() => {
+      res.status(200).json({
+        message: req.body.name + " added to clients successfully",
+      });
     })
     .catch((err) => {
       console.log(err);

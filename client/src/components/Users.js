@@ -83,6 +83,7 @@ export const Users = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Email",
@@ -93,6 +94,7 @@ export const Users = () => {
       title: "Balance",
       dataIndex: "balance",
       key: "balance",
+      sorter: (a, b) => a.balance - b.balance,
     },
     {
       title: "Actions",

@@ -10,7 +10,7 @@ export const fetchClients = async () => {
 };
 
 export const makeATransaction = async (id, funds) => {
-  const data= await fetch("/makeATransaction", {
+  const data = await fetch("/makeATransaction", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -31,8 +31,8 @@ export const fetchTransactions = async () => {
   return data;
 };
 
-export const fetchUserTransactions = async (id)=>{
-  const data = await fetch("/getTransactionUserList/"+id, {
+export const fetchUserTransactions = async (id) => {
+  const data = await fetch("/getTransactionUserList/" + id, {
     method: "get",
     headers: {
       "Content-Type": "application/json",
@@ -40,4 +40,15 @@ export const fetchUserTransactions = async (id)=>{
     },
   }).then((res) => res.json());
   return data;
-}
+};
+
+export const addAUser = async (values) => {
+  const data = await fetch("/addAUser", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(values),
+  }).then((res) => res.json());
+  return data;
+};

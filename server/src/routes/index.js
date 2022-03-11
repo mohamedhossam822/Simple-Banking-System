@@ -9,4 +9,6 @@ router.post("/makeATransaction",Controller.makeATransaction);
 router.get("/getTransactionList",Controller.getTransactionList);
 // Get users Transactions
 router.get("/getTransactionUserList/:id",Controller.getTransactionUserList);
+//Add a new user
+router.post("/addAUser",Controller.addAUser);
 module.exports = router;
