@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchUserTransactions } from "../requests";
-import {  Table  } from "antd";
+import {  Table ,Breadcrumb } from "antd";
 import "antd/dist/antd.css";
 export const UserTransactions = () => {
   const [isLoading, setLoading] = useState(false);
@@ -69,7 +69,11 @@ const listItems = (
  
   return (
     <div>
-      <h1>{name+currentBalance}</h1>
+      <Breadcrumb style={{ margin: "16px 0" }}>
+          <Breadcrumb.Item>Transactions</Breadcrumb.Item>
+          <Breadcrumb.Item>{name}</Breadcrumb.Item>
+        </Breadcrumb>
+        <h3>Current Balance : {currentBalance}</h3><br></br>
       {isLoading ? listItems : <div>Loading ...</div>}
     </div>
   );

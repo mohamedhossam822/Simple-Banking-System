@@ -1,0 +1,11 @@
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Height of the footer */
+}
+.site-layout-content {
+  min-height: 280px;
+  height: 100%;
+  padding: 24px;
+}

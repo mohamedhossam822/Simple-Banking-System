@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchTransactions } from "../requests";
-import { Table, Space, Button } from "antd";
+import { Table, Space, Button ,Breadcrumb} from "antd";
 import "antd/dist/antd.css";
 export const Transactions = () => {
   const [isLoading, setLoading] = useState(false);
@@ -86,7 +86,9 @@ export const Transactions = () => {
 
   return (
     <div>
-      <h1>Transactions</h1>
+      <Breadcrumb style={{ margin: "16px 0" }}>
+          <Breadcrumb.Item>Transactions</Breadcrumb.Item>
+        </Breadcrumb>
       {isLoading ? listItems : <div>Loading ...</div>}
     </div>
   );

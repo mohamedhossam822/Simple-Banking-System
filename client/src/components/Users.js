@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { fetchClients, makeATransaction } from "../requests";
-import { Table, Space, Button, Modal, Form, Input } from "antd";
+import { Table, Space, Button, Modal, Form, Input,Breadcrumb } from "antd";
 import "antd/dist/antd.css";
 export const Users = () => {
   const navigate = useNavigate();
@@ -144,7 +144,9 @@ export const Users = () => {
 
   return (
     <div>
-      <h1>Clients</h1>
+      <Breadcrumb style={{ margin: "16px 0" }}>
+          <Breadcrumb.Item>Clients</Breadcrumb.Item>
+        </Breadcrumb>
       {isLoading ? listItems : <div>Loading ...</div>}
       {newModal}
     </div>
