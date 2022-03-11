@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { TransactionModal } from "./TransactionModal";
 import { fetchClients, makeATransaction } from "../requests";
-import { Table, Space, Button, Modal, Form, Input,Breadcrumb } from "antd";
+import { Table, Space, Button, Breadcrumb } from "antd";
 import "antd/dist/antd.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+///////// Pop-up Messsages Config /////////
+toast.configure();
+
 export const Users = () => {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentId, setCurrentId] = useState(null);
-  const [form] = Form.useForm();
   const [errMessage, setErrMessage] = useState({
     validateStatus: "success",
     errorMsg: null,
@@ -36,6 +41,27 @@ export const Users = () => {
     setErrMessage(defaultErrMessage);
     //Make the transaction
     const res = await makeATransaction(currentId, funds);
+    if (res.message) {
+      toast.info(res.message, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.info("Transaction Failed", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
     fetchClients().then((data) => {
       setData(data);
     });
@@ -84,24 +110,6 @@ export const Users = () => {
     },
   ];
 
-  /***Validate***/
-  const ValidateFunds = (Funds) => {
-    //Validate if it exists & its a number
-    if (isNaN(Funds) || Funds === "")
-      return {
-        validateStatus: "error",
-        errorMsg: "Please, Enter a valid number of funds",
-      };
-    //Validate its bigger than 0
-    if (Funds <= 0)
-      return {
-        validateStatus: "error",
-        errorMsg: "Enter a number bigger than 0!",
-      };
-
-    return defaultErrMessage;
-  };
-
   /****mini-Components****/
   const listItems = (
     <Table
@@ -111,44 +119,19 @@ export const Users = () => {
     />
   );
 
-  const newForm = (
-    <Form form={form} layout="vertical" name="form_in_modal">
-      <Form.Item
-        name="Funds"
-        label="Funds"
-        validateStatus={errMessage.validateStatus}
-        help={errMessage.errorMsg}
-      >
-        <Input />
-      </Form.Item>
-    </Form>
-  );
-
-  const newModal = (
-    <Modal
-      title="New Transaction"
-      visible={isModalVisible}
-      onOk={() => {
-        form.validateFields().then((values) => {
-          const result = ValidateFunds(values.Funds);
-          if (result.validateStatus === "error") {
-            setErrMessage(result);
-          } else handleOk(values.Funds);
-        });
-      }}
-      onCancel={handleCancel}
-    >
-      {newForm}
-    </Modal>
-  );
-
   return (
     <div>
       <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Clients</Breadcrumb.Item>
-        </Breadcrumb>
+        <Breadcrumb.Item>Clients</Breadcrumb.Item>
+      </Breadcrumb>
       {isLoading ? listItems : <div>Loading ...</div>}
-      {newModal}
+      <TransactionModal
+        isModalVisible={isModalVisible}
+        errMessage={errMessage}
+        setErrMessage={setErrMessage}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+      ></TransactionModal>
     </div>
   );
 };

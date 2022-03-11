@@ -1,0 +1,9 @@
+.RightButton {
+  float: right;
+  margin-bottom: 25px;
+  margin-top: -4px;
+}
+.screenCenter {
+  padding-top: 100px;
+  text-align: center;
+}

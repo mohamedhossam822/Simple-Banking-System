@@ -1,29 +1,32 @@
 import { Users, Home, Transactions, UserTransactions } from "./components";
-import { Routes, Route, useNavigate  } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import "./Styles/mainPage.css";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 const { Header, Content, Footer } = Layout;
 
 function App() {
   const navigate = useNavigate();
   const [windowDimensions, setwindowHeight] = useState(window.innerHeight);
-  const pageUrl=window.location.pathname.substring(1);
-  const [currentPage, setCurrentPage] = useState(pageUrl===""? ("Home"): (pageUrl));
-  const handleClick = (e) => {
-    navigate("/" + e.key);
+  const pageUrl = window.location.pathname.substring(1);
+  const [currentPage, setCurrentPage] = useState(
+    pageUrl === "" ? "Home" : pageUrl
+  );
+  const handleClick = async (e) => {
     setCurrentPage(e.key);
+    navigate("/" + e.key);
+    if (e.external) window.location.reload(false);
   };
 
-
   useEffect(() => {
+    document.title = currentPage.charAt(0).toUpperCase() + currentPage.slice(1);
     function handleResize() {
       setwindowHeight(window.innerHeight);
     }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  
+  }, [currentPage]);
+
   return (
     <Layout className="layout">
       <Header>
@@ -45,10 +48,25 @@ function App() {
           className="site-layout-content"
           style={{ minHeight: windowDimensions - 135 }}
         >
-          <Routes >
-          <Route exact path="/Home" key="Home" element={<Home />}></Route>
-            <Route exact path="/" key="Home" element={<Home />}></Route>
-            <Route exact path="/clients" key="clients" element={<Users />}></Route>
+          <Routes>
+            <Route
+              exact
+              path="/Home"
+              key="Home"
+              element={<Home handleClick={handleClick} />}
+            ></Route>
+            <Route
+              exact
+              path="/"
+              key="Home"
+              element={<Home handleClick={handleClick} />}
+            ></Route>
+            <Route
+              exact
+              path="/clients"
+              key="clients"
+              element={<Users />}
+            ></Route>
             <Route
               exact
               path="/transactions"
@@ -64,7 +82,7 @@ function App() {
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>
-        Ant Design ©2018 Created by Ant UED
+        Banking app ©2022 Created by Mohamed Hossam
       </Footer>
     </Layout>
   );

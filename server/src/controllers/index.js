@@ -54,12 +54,13 @@ exports.makeATransaction = async (req, res) => {
 
   res
     .status(200)
-    .json(
-      balance +
+    .json({
+      message:
+        balance +
         "$ Added Successfully. Current Balance: " +
         updatedUser.balance +
-        "$"
-    );
+        "$",
+    });
 };
 
 //Get Transaction List
@@ -76,7 +77,7 @@ exports.getTransactionList = (req, res) => {
     });
 };
 exports.getTransactionUserList = (req, res) => {
-  const id=req.params.id;
+  const id = req.params.id;
   User.findById(id)
     .populate({ path: "transactions" })
     .then((docs) => {
