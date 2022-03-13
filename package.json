@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
     "seed" : "node temp/seed.js"
+  },
+  "engines": {
+    "node": "14.15.4"
   },
   "author": "Mohamed Hossam",
   "license": "ISC",
