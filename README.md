@@ -9,11 +9,9 @@ Simple Banking Web app that allows you to transfer funds to users made in TSF GR
 - Add a new client
 - View list of transactions
 
+## Deployment 
+ - [Simple banking web apllication](https://simplebankingweb.herokuapp.com/)
 ## Getting Started
-- React
-- Node.Js
-- MongoDB
-- Npm packages
 
 ### Server side
 
