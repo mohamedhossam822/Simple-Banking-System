@@ -10,7 +10,7 @@ Simple Banking Web app that allows you to transfer funds to users made in TSF GR
 - View list of transactions
 
 ## Deployment 
- - [Simple banking web apllication](https://simplebankingweb.herokuapp.com/)
+ - [Simple banking web application](https://simplebankingweb.herokuapp.com/)
  
 ## Built With
 
