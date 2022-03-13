@@ -13,10 +13,8 @@
   },
   "author": "Mohamed Hossam",
   "license": "ISC",
-  "devDependencies": {
-    "express": "^4.17.3"
-  },
   "dependencies": {
+    "express": "^4.17.3",
     "dotenv": "^16.0.0"
   }
 }
